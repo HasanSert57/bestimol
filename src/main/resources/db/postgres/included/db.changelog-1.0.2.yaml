@@ -1,0 +1,31 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: hasan
+      changes:
+        - sql:
+            sql: |
+              INSERT INTO users (username, email, password, phone_number, is_verified, created_at, updated_at, is_deleted) 
+              VALUES ('testuser', 'testuser@example.com', 'password123', '1234567890', true, '2024-05-26 10:00:00', '2024-05-26 10:00:00', false);
+
+              INSERT INTO categories (name, parent_category_id, created_at, updated_at, is_deleted) 
+              VALUES ('Sports', NULL, '2024-05-26 10:00:00', '2024-05-26 10:00:00', false);
+              
+              INSERT INTO categories (name, parent_category_id, created_at, updated_at, is_deleted) 
+              VALUES ('Basketball', (SELECT id FROM categories WHERE name='Sports'), '2024-05-26 10:00:00', '2024-05-26 10:00:00', false);
+              
+              INSERT INTO events (event_name, category_id, subcategory_id, participant_count, event_date, city_id, district_id, location_detail, description, created_at, updated_at, is_deleted) 
+              VALUES (
+                'Basketball Oynayalım', 
+                (SELECT id FROM categories WHERE name = 'Sports'), 
+                (SELECT id FROM categories WHERE name = 'Basketball'), 
+                4, 
+                '2024-05-27 15:00:00', 
+                (SELECT id FROM cities WHERE name = 'İstanbul'), 
+                (SELECT id FROM districts WHERE name = 'Tuzla'), 
+                'Tuzla Sahilde', 
+                'Basketbol oynamak isteyen var mı', 
+                '2024-05-26 10:00:00', 
+                '2024-05-26 10:00:00', 
+                false
+              );
