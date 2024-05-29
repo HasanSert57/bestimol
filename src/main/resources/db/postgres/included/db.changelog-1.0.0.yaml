@@ -1,54 +1,113 @@
 databaseChangeLog:
   - changeSet:
       id: 1
-      author: Hasan
+      author: your_name
       changes:
         - createTable:
             tableName: users
             columns:
               - column:
                   name: id
-                  type: bigint
+                  type: BIGINT
+                  autoIncrement: true
                   constraints:
                     primaryKey: true
                     nullable: false
-                  autoIncrement: true
+              - column:
+                  name: account_non_expired
+                  type: BOOLEAN
+                  defaultValueBoolean: true
+                  constraints:
+                    nullable: false
+              - column:
+                  name: is_enabled
+                  type: BOOLEAN
+                  defaultValueBoolean: true
+                  constraints:
+                    nullable: false
+              - column:
+                  name: account_non_locked
+                  type: BOOLEAN
+                  defaultValueBoolean: true
+                  constraints:
+                    nullable: false
+              - column:
+                  name: credentials_non_expired
+                  type: BOOLEAN
+                  defaultValueBoolean: true
+                  constraints:
+                    nullable: false
               - column:
                   name: username
-                  type: varchar(255)
+                  type: VARCHAR(255)
                   constraints:
                     nullable: false
               - column:
                   name: email
-                  type: varchar(255)
+                  type: VARCHAR(255)
                   constraints:
                     nullable: false
               - column:
                   name: password
-                  type: varchar(255)
+                  type: VARCHAR(255)
                   constraints:
                     nullable: false
               - column:
                   name: phone_number
-                  type: varchar(255)
+                  type: VARCHAR(20)
+                  constraints:
+                    nullable: true
               - column:
                   name: is_verified
-                  type: boolean
-                  defaultValueBoolean: false
-              - column:
-                  name: created_at
-                  type: timestamp
-                  defaultValueComputed: CURRENT_TIMESTAMP
-              - column:
-                  name: updated_at
-                  type: timestamp
-                  defaultValueComputed: CURRENT_TIMESTAMP
+                  type: BOOLEAN
+                  constraints:
+                    nullable: true
               - column:
                   name: is_deleted
-                  type: boolean
-                  defaultValueBoolean: false
+                  type: BOOLEAN
+                  constraints:
+                    nullable: true
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+  - changeSet:
+      id: 2
+      author: your_name
+      changes:
+        - createTable:
+            tableName: authorities
+            columns:
+              - column:
+                  name: user_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: role
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
   - changeSet:
       id: 3
+      author: your_name
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: authorities
+            baseColumnNames: user_id
+            constraintName: fk_user_authorities
+            referencedTableName: users
+            referencedColumnNames: id
+  - changeSet:
+      id: 4
       author: Hasan
       changes:
         - createTable:
@@ -88,7 +147,7 @@ databaseChangeLog:
             referencedColumnNames: id
             constraintName: fk_parent_category
   - changeSet:
-      id: 4
+      id: 5
       author: Hasan
       changes:
         - createTable:
@@ -111,7 +170,7 @@ databaseChangeLog:
                   type: boolean
                   defaultValueBoolean: false
   - changeSet:
-      id: 5
+      id: 6
       author: Hasan
       changes:
         - createTable:
@@ -145,7 +204,7 @@ databaseChangeLog:
             referencedColumnNames: id
             constraintName: fk_district_city
   - changeSet:
-      id: 6
+      id: 7
       author: Hasan
       changes:
         - createTable:

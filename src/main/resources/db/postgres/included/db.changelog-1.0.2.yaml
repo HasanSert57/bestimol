@@ -5,9 +5,12 @@ databaseChangeLog:
       changes:
         - sql:
             sql: |
-              INSERT INTO users (username, email, password, phone_number, is_verified, created_at, updated_at, is_deleted) 
-              VALUES ('testuser', 'testuser@example.com', 'password123', '1234567890', true, '2024-05-26 10:00:00', '2024-05-26 10:00:00', false);
-
+              INSERT INTO users (account_non_expired, account_non_locked, created_at, credentials_non_expired, email, is_enabled, is_verified, password, phone_number, updated_at, username, is_deleted) 
+              VALUES (true, true, '2024-05-26 10:00:00', true, 'testuser@example.com', true, true, 'password123', '1234567890', '2024-05-26 10:00:00', 'testuser', false);
+              
+              INSERT INTO authorities (user_id, role)
+              VALUES ((SELECT id FROM users WHERE username = 'testuser'), 'ROLE_USER');
+              
               INSERT INTO categories (name, parent_category_id, created_at, updated_at, is_deleted) 
               VALUES ('Sports', NULL, '2024-05-26 10:00:00', '2024-05-26 10:00:00', false);
               

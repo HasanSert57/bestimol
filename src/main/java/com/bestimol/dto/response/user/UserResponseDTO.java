@@ -1,12 +1,15 @@
 package com.bestimol.dto.response.user;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Getter
 @Setter
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class UserResponseDTO {
     private Long id;
     private String username;
@@ -14,4 +17,5 @@ public class UserResponseDTO {
     private String phoneNumber;
     private Boolean isVerified;
     private LocalDateTime createdAt;
+    private Set<String> authorities;
 }
